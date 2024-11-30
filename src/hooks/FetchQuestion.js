@@ -15,6 +15,8 @@ export const useFetchQestion = () => {
 
         /** async function fetch backend data */
         (async () => {
+            console.log('Backend URL:', process.env.REACT_APP_SERVER_HOSTNAME);
+
             try {
                 const [{ questions, answers }] = await getServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/questions`, (data) => data)
                 

@@ -17,14 +17,34 @@ export const updateResult = (index) => async (dispatch) => {
 }
 
 /** insert user data */
+// export const usePublishResult = (resultData) => {
+//     const { result, username } = resultData;
+//     (async () => {
+//         try {
+//             if(result !== [] && !username) throw new Error("Couldn't get Result");
+//             await postServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`, resultData, data => data)
+//         } catch (error) {
+//             console.log(error)
+//         }
+//     })();
+// }
 export const usePublishResult = (resultData) => {
     const { result, username } = resultData;
     (async () => {
         try {
-            if(result !== [] && !username) throw new Error("Couldn't get Result");
-            await postServerData(`${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`, resultData, data => data)
+            console.log('Backend URL:', process.env.REACT_APP_SERVER_HOSTNAME);
+
+            // Check if result is not empty and username exists
+            if (!result?.length || !username) {
+                throw new Error("Couldn't get Result");
+            }
+            await postServerData(
+                `${process.env.REACT_APP_SERVER_HOSTNAME}/api/result`, 
+                resultData, 
+                (data) => data
+            );
         } catch (error) {
-            console.log(error)
+            console.log(error.message); // Log only the error message
         }
     })();
-}
+};
